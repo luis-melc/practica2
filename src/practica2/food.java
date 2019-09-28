@@ -6,6 +6,8 @@
 
 package practica2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author luis
@@ -13,13 +15,14 @@ package practica2;
 public class food {
     private String name;
     private String origin;
-    private String ingredients;
+    //private String ingredients;
+    private ArrayList<String> ingredients = new ArrayList<String>();
     
     //Constructor
     public food(){
         name = "";
         origin = "";
-        ingredients = "";
+        ingredients.clear();
     }
     
     //Seters
@@ -32,7 +35,7 @@ public class food {
     }
     
     public void setIngredients(String _ingredient){
-        ingredients = _ingredient;
+        ingredients.add(_ingredient);
     }
     
     //Geters
@@ -44,9 +47,9 @@ public class food {
         return origin;
     }
     
-    public String getIngrdient(){
-        return ingredients;
-    }
+    //public String getIngredient(){
+    //    return ingredients;
+    //}
     
     
     //Metodos
@@ -54,6 +57,9 @@ public class food {
         System.out.println("*********Platillo*********");
         System.out.println("Nombre: " + this.name);
         System.out.println("Origen: " + this.origin);
-        System.out.println("Ingredientes: " + this.ingredients);
+        System.out.println("Ingredientes: ");
+        for (int i = 0; i < ingredients.size(); i++){
+            System.out.println(ingredients.get(i));
+        }
     }
 }

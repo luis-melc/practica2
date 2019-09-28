@@ -41,6 +41,10 @@ public class Practica2 {
             platillos[i].setName(name);
             platillos[i].setOrigin(origin);
             platillos[i].setIngredients(ingredient);
+            System.out.print("Ingresa el Ingrediente: ");
+            ingredient = leer.nextLine();
+            platillos[i].setIngredients(ingredient);
+
         }
         
         for(int i = 0; i < platillos.length; i++){
