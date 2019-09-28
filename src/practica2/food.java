@@ -7,6 +7,7 @@
 package practica2;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -47,19 +48,23 @@ public class food {
         return origin;
     }
     
-    //public String getIngredient(){
-    //    return ingredients;
-    //}
+    
+    public void deleteIngredient(Integer _index){
+        System.out.print(_index);
+        ingredients.remove(_index);
+    }
     
     
     //Metodos
     public void showPlatillo(){
-        System.out.println("*********Platillo*********");
         System.out.println("Nombre: " + this.name);
         System.out.println("Origen: " + this.origin);
         System.out.println("Ingredientes: ");
-        for (int i = 0; i < ingredients.size(); i++){
-            System.out.println(ingredients.get(i));
-        }
+        // for (int i = 0; i < ingredients.size(); i++){
+        //     System.out.println((i+1) + ")  " + ingredients.get(i));
+        // }
+        Iterator<String> it = ingredients.iterator();
+        while(it.hasNext())
+            System.out.println(it.next());
     }
 }
