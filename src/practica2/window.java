@@ -6,6 +6,14 @@
 
 package practica2;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
 /**
  *
  * @author luis
@@ -15,8 +23,21 @@ public class window extends javax.swing.JFrame {
     /**
      * Creates new form window
      */
+
+    private List<JButton> btnsDeleteIngredient;
+    private Integer indexIngredient;
+    private List<JTextField> txtsIngredient;
+    private List<JLabel> lblsIngredient;
+    private ArrayList<food> platillos;
+
+    //Contructor
     public window() {
         initComponents();
+        btnsDeleteIngredient = new ArrayList<>();
+        txtsIngredient = new ArrayList<>();
+        lblsIngredient = new ArrayList<>();
+        platillos = new ArrayList<food>();
+        indexIngredient = 0;
     }
 
     /**
@@ -33,66 +54,137 @@ public class window extends javax.swing.JFrame {
         txtName = new javax.swing.JTextField();
         lblOrigin = new javax.swing.JLabel();
         txtOrigin = new javax.swing.JTextField();
-        lblIngredient = new javax.swing.JLabel();
-        txtIngredient = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        panelIngredients = new javax.swing.JPanel();
+        btnAddIngredient = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btnShowPlatillo = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        panelShowPlatillos = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTitle.setText("Datos del Platillo");
+        getContentPane().add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 140, -1));
 
         lblPlatillo.setText("Nombre:");
+        getContentPane().add(lblPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 152, -1));
+        getContentPane().add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 50, 230, -1));
 
         lblOrigin.setText("Origen:");
+        getContentPane().add(lblOrigin, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 144, -1));
+        getContentPane().add(txtOrigin, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 100, 230, -1));
 
-        lblIngredient.setText("Ingrediente:");
+        panelIngredients.setLayout(new java.awt.GridLayout(0, 3));
+        jScrollPane1.setViewportView(panelIngredients);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(337, 337, 337)
-                .addComponent(lblTitle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(265, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblIngredient)
-                        .addGap(28, 28, 28)
-                        .addComponent(txtIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblOrigin)
-                        .addGap(28, 28, 28)
-                        .addComponent(txtOrigin, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblPlatillo)
-                        .addGap(28, 28, 28)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(273, 273, 273))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPlatillo))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtOrigin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblOrigin))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblIngredient))
-                .addContainerGap(232, Short.MAX_VALUE))
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 480, 140));
+
+        btnAddIngredient.setText("Nuevo Ingrediente");
+        btnAddIngredient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddIngredientActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAddIngredient, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 162, -1));
+
+        btnSave.setText("Guardar Platillo");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 480, -1));
+
+        jLabel1.setText("Platillos Guardados");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, 190, 20));
+
+        btnShowPlatillo.setText("Mostrar Platillos");
+        btnShowPlatillo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowPlatilloActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnShowPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, -1));
+
+        panelShowPlatillos.setLayout(new java.awt.GridLayout(0, 1));
+        jScrollPane3.setViewportView(panelShowPlatillos);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 590, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddIngredientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddIngredientActionPerformed
+        // TODO add your handling code here:
+        JButton btnDeleteIngredient = new JButton("Eliminar Ingrediente " + (indexIngredient+1));
+        JTextField txtIngredient = new JTextField();
+        JLabel lblIngredient = new JLabel("Ingrediente " + (indexIngredient+1));
+        
+        panelIngredients.add(lblIngredient);
+        lblsIngredient.add(lblIngredient);
+        panelIngredients.add(txtIngredient);
+        txtsIngredient.add(txtIngredient);
+        panelIngredients.add(btnDeleteIngredient);
+        btnsDeleteIngredient.add(btnDeleteIngredient);
+        indexIngredient++;
+        panelIngredients.updateUI();
+    }//GEN-LAST:event_btnAddIngredientActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        food newPlatillo = new food();
+        newPlatillo.setName(txtName.getText());
+        newPlatillo.setOrigin(txtOrigin.getText());
+        for (JTextField ingrediente : txtsIngredient) {
+            newPlatillo.setIngredients(ingrediente.getText());
+        }
+        // newPlatillo.showPlatillo();
+
+        platillos.add(newPlatillo);
+        
+        txtName.setText("");
+        txtOrigin.setText("");
+        panelIngredients.removeAll();
+        btnsDeleteIngredient = new ArrayList<>();
+        txtsIngredient = new ArrayList<>();
+        lblsIngredient = new ArrayList<>();
+        indexIngredient = 0;
+        panelIngredients.repaint();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnShowPlatilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowPlatilloActionPerformed
+        // TODO add your handling code here:
+        Integer numero = 1;
+        System.out.println("Click on Show");
+        for (food platillo : platillos) {
+            JLabel lblPlatillo = new JLabel("Platillo " + numero);
+            JLabel lblPlatilloName = new JLabel("Nombre: " + platillo.getName());
+            JLabel lblPlatilloOrigin = new JLabel("Origen: " + platillo.getOrigin());
+            panelShowPlatillos.add(lblPlatillo);
+            panelShowPlatillos.add(lblPlatilloName);
+            panelShowPlatillos.add(lblPlatilloOrigin);
+            System.out.println("Platillo numero: " + numero);
+            System.out.println("Nombre: " + platillo.getName());
+            System.out.println("Origen: " + platillo.getOrigin());
+            Integer numeroIngrediente = 1;
+            Iterator<String> ingrediente =platillo.getIngredients().iterator();
+            while(ingrediente.hasNext()){
+                JLabel lblIngrediente = new JLabel("Ingrediente " + ingrediente.next());
+                panelShowPlatillos.add(lblIngrediente);
+                System.out.println("Ingrediente " + numeroIngrediente + ": " + ingrediente.next());
+                numeroIngrediente++;
+            }
+            numero++;
+            // System.out.println(it.next());
+            // for (String  ingrediente: platillo.getIngredients()) {
+            //     JLabel lblIngrediente = new JLabel("Ingrediente " + numeroIngrediente + ": " + ingrediente);
+            //     panelShowPlatillos.add(lblIngrediente);
+            // }
+        }
+    }//GEN-LAST:event_btnShowPlatilloActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,11 +222,17 @@ public class window extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblIngredient;
+    private javax.swing.JButton btnAddIngredient;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnShowPlatillo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblOrigin;
     private javax.swing.JLabel lblPlatillo;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTextField txtIngredient;
+    private javax.swing.JPanel panelIngredients;
+    private javax.swing.JPanel panelShowPlatillos;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtOrigin;
     // End of variables declaration//GEN-END:variables

@@ -16,7 +16,6 @@ import java.util.Iterator;
 public class food {
     private String name;
     private String origin;
-    //private String ingredients;
     private ArrayList<String> ingredients = new ArrayList<String>();
     
     //Constructor
@@ -46,6 +45,10 @@ public class food {
     
     public String getOrigin(){
         return origin;
+    }
+
+    public ArrayList<String> getIngredients(){
+        return ingredients;
     }
     
     
